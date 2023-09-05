@@ -1,3 +1,6 @@
+import io.cucumber.core.logging.Logger;
+import io.cucumber.core.logging.LoggerFactory;
+import io.cucumber.java.Scenario;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -15,14 +18,26 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * This class contains Cucumber step definitions for ordering food on the KFC website.
+ */
 public class KFCOrderSteps {
     private WebDriver driver;
+    public Scenario scenario;
+    private Logger logger = LoggerFactory.getLogger(KFCOrderSteps.class);
 
+
+    /**
+     * Setup method executed before each scenario.
+     * Launches browser and sets implicit wait for the scenario
+     */
     @Before
-    public void setUp() {
+    public void setUp(Scenario scenario) {
         //System.setProperty is not needed as using the latest chrome version - 116, but need to be updated for older versions
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+
+        this.scenario = scenario;
     }
 
     @Given("the user is on the KFC website")
@@ -94,13 +109,13 @@ public class KFCOrderSteps {
         findelement("id","mt-input-email").sendKeys(email);
     }
 
+
     @And("user continues to the payment method using 'Card' option")
     public void userSelectsPaymentMethod() {
         // Select "Card" as the payment method (replace with actual selection)
         findelement("xpath","//button[@data-testid='pay-button']").click();
         findelement("xpath","//div[@aria-label='Paying with Card']").click();
         //hardingcoding dummy card details for this scenario
-
         driver.switchTo().frame(findelement("xpath","//iframe[@title='Secure Credit Card Frame - Credit Card Number']"));
         findelement("xpath","//input[@id='credit-card-number']").sendKeys("2222405343248877");
         driver.switchTo().defaultContent();
@@ -121,10 +136,18 @@ public class KFCOrderSteps {
     @Then("Verify the error message for the failed payment")
     public void verifyFailedPaymentErrorMessage() {
         // Add code to verify the error message for the failed payment
-        WebElement errorMessage = findelement("xpath","//div[@class='paymentFailed']");
+        WebElement errorMessage = findelement("xpath","//div[@class='paymentFailed']//div[contains(text(),'Check your payment')]");
         assert(errorMessage.isDisplayed());
+        logger.info(errorMessage::getText);
+        scenario.log(errorMessage.getText());
     }
-
+    /**
+     * Generic method to find elements based on the type and locator.
+     *
+     * @param type    The type of the locator (e.g., "id", "name", "xpath").
+     * @param locator The locator string.
+     * @return The found WebElement.
+     */
     public WebElement findelement(String type, String locator){
         try {
             WebElement element;
@@ -154,8 +177,11 @@ public class KFCOrderSteps {
 
 
     @After
-    public void tearDown() {
+    public void tearDown(Scenario scenario) {
         // Close the browser after the scenario
         driver.quit();
+        if(scenario.isFailed()){
+            scenario.log("Scenario failed");
+        }
     }
 }

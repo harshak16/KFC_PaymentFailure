@@ -13,6 +13,3 @@ Feature: Verify payment failure for KFC order
     Then user continues to the payment method using 'Card' option
     Then Verify the error message for the failed payment
 
-
-
-#Card: 2222405343248877  -- 12/24  --- 123
