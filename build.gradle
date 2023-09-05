@@ -1,0 +1,21 @@
+plugins {
+    id 'java'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Cucumber dependencies
+    implementation group: 'io.cucumber', name: 'cucumber-java', version: '7.13.0'
+    implementation group: 'io.cucumber', name: 'cucumber-core', version: '7.13.0'
+    testImplementation group: 'io.cucumber', name: 'cucumber-junit', version: '7.13.0'
+
+    // Selenium WebDriver dependencies
+    implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '4.12.0'
+    implementation group: 'org.seleniumhq.selenium', name: 'selenium-api', version: '4.12.0'
+    implementation group: 'org.seleniumhq.selenium', name: 'selenium-chrome-driver', version: '4.12.0'
+}
+
+
