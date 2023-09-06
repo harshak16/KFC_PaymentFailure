@@ -1,5 +1,7 @@
 Feature: Verify payment failure for KFC order
 
+
+  @KFC_PaymentFailure
   Scenario: Verify the payment failure scenario during checkout - Pickup
     Given the user is on the KFC website
     When the user clicks on the 'Start oder' button

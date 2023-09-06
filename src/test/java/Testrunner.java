@@ -3,7 +3,7 @@ import io.cucumber.junit.CucumberOptions;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(plugin = {"pretty", "html:target/cucumber"}, features = "src/test/resources", glue = "")
+@CucumberOptions(plugin = {"pretty", "html:target/cucumber"}, features = "src/test/resources", tags = "@KFC_PaymentFailure")
 public class Testrunner{
 
 

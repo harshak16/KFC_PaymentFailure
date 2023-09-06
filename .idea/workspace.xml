@@ -4,12 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="58f302f9-680d-420f-a0c8-8b2c68d65ad1" name="Changes" comment="initial commit for KFC payment failure scenario with sucessful test run">
+    <list default="true" id="58f302f9-680d-420f-a0c8-8b2c68d65ad1" name="Changes" comment="Adding javadoc and reporting error message post payment">
+      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/harshakdesharaju.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/testData/testdata.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/KFCOrderSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/KFCOrderSteps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/KFCOrderSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/au/kfc/KFCOrderSteps.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/Testrunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Testrunner.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/Features/KFC_Orderfailure.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/Features/KFC_Orderfailure.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/cucumber.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/cucumber.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/cucumber" beforeDir="false" afterPath="$PROJECT_DIR$/target/cucumber" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,9 +38,9 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="jar:///Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home/lib/src.zip!/java.base/java/lang/reflect/Method.java" root0="FORCE_HIGHLIGHTING" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 0
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
   <component name="ProjectId" id="2UxVl7qqn0DMgAj8kyENf66zo5N" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -47,8 +51,10 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
-    "onboarding.tips.debug.path": "/Users/harshakdesharaju/code/Selenium_workspace/KFC_Order/src/main/java/org/example/Main.java"
+    "onboarding.tips.debug.path": "/Users/harshakdesharaju/code/Selenium_workspace/KFC_Order/src/main/java/org/example/Main.java",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
   <component name="RunManager" selected="Gradle.Testrunner">
@@ -168,12 +174,21 @@
       <option name="project" value="LOCAL" />
       <updated>1693895403284</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Adding javadoc and reporting error message post payment">
+      <option name="closed" value="true" />
+      <created>1693905035327</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1693905035327</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="initial commit for KFC payment failure scenario with sucessful test run" />
-    <option name="LAST_COMMIT_MESSAGE" value="initial commit for KFC payment failure scenario with sucessful test run" />
+    <MESSAGE value="Adding javadoc and reporting error message post payment" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adding javadoc and reporting error message post payment" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

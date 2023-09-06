@@ -1,10 +1,9 @@
+package com.au.kfc;
+
 import io.cucumber.core.logging.Logger;
 import io.cucumber.core.logging.LoggerFactory;
 import io.cucumber.java.Scenario;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -15,37 +14,55 @@ import io.cucumber.java.en.And;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.time.Duration;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
-/**
+/** Considerations during the framework creation:
  * This class contains Cucumber step definitions for ordering food on the KFC website.
+ * hardcoding testdata and locators which can be further parameterised for scalable automation framework
+ * test data can  be managed using other data sources as well eg: csv, excel, xml and others
+ * For this sample framework I have used flat file as one of the data sources to showcase
+ * To make it more robust and easy test data management, these data can also be managed through CI/CD pipeline
+ * POM(page object model) or other strategies can be implemented for better management/re-usability of methods, locators and the common code can be separated.
+ * Code is written within Stepdef file so that the validation of code can be performed in a single file.
+ * Readme file can be added to complex projects to describe the usage and to provide instructions
  */
 public class KFCOrderSteps {
     private WebDriver driver;
     public Scenario scenario;
-    private Logger logger = LoggerFactory.getLogger(KFCOrderSteps.class);
+    private final Logger logger = LoggerFactory.getLogger(KFCOrderSteps.class);
+    public static Properties properties = new Properties();
 
 
     /**
      * Setup method executed before each scenario.
-     * Launches browser and sets implicit wait for the scenario
+     * Launches browser, sets implicit wait and load test data for the scenario to execute.
      */
     @Before
     public void setUp(Scenario scenario) {
         //System.setProperty is not needed as using the latest chrome version - 116, but need to be updated for older versions
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-
+        loadProperties();
         this.scenario = scenario;
     }
 
+    /**
+     * This method is launching the url fetched from properties file
+     */
     @Given("the user is on the KFC website")
     public void userIsOnKFCWebsite() {
         // Navigate to the KFC website
-        driver.get("https://www.kfc.com.au/");
+        driver.get(properties.getProperty("url"));
+        //Verify the KFC page loaded
     }
 
+    /**
+     * This method is to showcase the direct use of feature line as a step def
+     */
     @When("the user clicks on the 'Start oder' button")
     public void userClicksStartOrderButton() {
         findelement("id","startOrderItemButton").click();
@@ -58,6 +75,11 @@ public class KFCOrderSteps {
 
     }
 
+    /**
+     * This method is to showcase the use of fetching the data from feature file.
+     * this can be implemented as a common practice and have the code to perform action based on the value received.
+     * With that approach, code re-usability can be improved.
+     */
     @And("user selects {string} as the pickup location")
     public void userSelectsPickupLocation(String location) {
 
@@ -75,6 +97,10 @@ public class KFCOrderSteps {
         findelement("xpath","//button[@aria-label='View Menu']").click();
     }
 
+    /**
+     * Using feature line as is..
+     * "Bucket for One" can be parameterised so order any item/multiple items as per the scenario.
+     */
     @Then("user selects 'Bucket for One' to the cart")
     public void userSelectsItemToCart() {
         // Select an item to add to the cart
@@ -100,9 +126,16 @@ public class KFCOrderSteps {
 
     }
 
+    /**
+     * Fetching the below params from the feature file and passing to the method
+     * @param firstname - first name to be entered in the guest section
+     * @param lastname - last name to be entered in the guest section
+     * @param phone - phone number to be entered in the guest section
+     * @param email - email to be entered in the guest section
+     */
     @And("user enters {string}, {string}, {string}, {string} on the checkout page")
     public void userEntersCheckoutInfo(String firstname, String lastname, String phone, String email) {
-        // Enter the guest details which are shared from Feature file
+        // Entering the guest details which are fetched from Feature file
         findelement("id","mt-input-firstNameLabel").sendKeys(firstname);
         findelement("id","mt-input-lastNameLabel").sendKeys(lastname);
         findelement("id","mt-input-phone").sendKeys(phone);
@@ -112,27 +145,38 @@ public class KFCOrderSteps {
 
     @And("user continues to the payment method using 'Card' option")
     public void userSelectsPaymentMethod() {
-        // Select "Card" as the payment method (replace with actual selection)
         findelement("xpath","//button[@data-testid='pay-button']").click();
         findelement("xpath","//div[@aria-label='Paying with Card']").click();
-        //hardingcoding dummy card details for this scenario
+        //Fetching card values from properties file to display the data fetched from data sources.
+        /*
+          Card details are required to enter inside iframes so switching the driver to iframe and perform actions.
+          Without this switch the script fails with no such element exception.
+          And to proceed after performing actions in iframe, we have to switch back to parent DOM.
+          The above mention steps are performed for each of the field in the card payment section
+         */
         driver.switchTo().frame(findelement("xpath","//iframe[@title='Secure Credit Card Frame - Credit Card Number']"));
-        findelement("xpath","//input[@id='credit-card-number']").sendKeys("2222405343248877");
+        findelement("xpath","//input[@id='credit-card-number']").sendKeys(properties.getProperty("creditCardNumber"));
         driver.switchTo().defaultContent();
         driver.switchTo().frame(findelement("xpath","//iframe[@title='Secure Credit Card Frame - Expiration Date']"));
-        findelement("id","expiration").sendKeys("1224");
+        findelement("id","expiration").sendKeys(properties.getProperty("expiry"));
         driver.switchTo().defaultContent();
         driver.switchTo().frame(findelement("xpath","//iframe[@title='Secure Credit Card Frame - CVV']"));
-        findelement("id","cvv").sendKeys("123");
+        findelement("id","cvv").sendKeys(properties.getProperty("cvv"));
         driver.switchTo().defaultContent();
-      //  driver.switchTo().defaultContent();
         findelement("xpath","//*[@id='Continue to Payment']").click();
+        //Both continue ordering and proceed to payment button has the same locators.
+        // Waiting for edit button to be displayed after adding the card to show the usage of explicit wait.
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.visibilityOf(findelement("xpath","//div[@data-braintree-id='methods-edit']")));
         findelement("xpath","//*[@id='Continue to Payment']").click();
 
     }
 
+    /**
+     * This method verifies the error message displayed, fails the scenario if the message is not displayed
+     * Adding logger for it to display the message in the console
+     * Adding scenario.log to display the message in the cucumber report.
+     */
     @Then("Verify the error message for the failed payment")
     public void verifyFailedPaymentErrorMessage() {
         // Add code to verify the error message for the failed payment
@@ -150,35 +194,59 @@ public class KFCOrderSteps {
      */
     public WebElement findelement(String type, String locator){
         try {
-            WebElement element;
 
-            switch (type.toLowerCase()) {
-                case "id":
-                    element = driver.findElement(By.id(locator));
-                    break;
-                case "name":
-                    element = driver.findElement(By.name(locator));
-                    break;
-                case "xpath":
-                    element = driver.findElement(By.xpath(locator));
-                    break;
-                case "cssselector":
-                    element = driver.findElement(By.cssSelector(locator));
-                    break;
-                default:
-                    throw new IllegalArgumentException("Invalid element type: " + type);
-            }
-            return element;
+            return switch (type.toLowerCase()) {
+                case "id" -> driver.findElement(By.id(locator));
+                case "name" -> driver.findElement(By.name(locator));
+                case "xpath" -> driver.findElement(By.xpath(locator));
+                case "cssselector" -> driver.findElement(By.cssSelector(locator));
+                default -> throw new IllegalArgumentException("Invalid element type: " + type);
+            };
         } catch (org.openqa.selenium.NoSuchElementException e) {
-            System.err.println("Element not found: " + locator);
+            logger.error(() -> "Element not found: " + locator);
             throw e;
         }
     }
+    /**
+     * This method will fetch the data from properties file and
+     * load it into the global properties variable.
+     */
+    public void loadProperties() {
 
+        FileInputStream inputStream = null;
 
+        try {
+            // Define the path to your properties file
+            String filePath = "src/test/resources/testData/testData.properties";
+
+            // Open the properties file using FileInputStream
+            inputStream = new FileInputStream(filePath);
+
+            // Load the properties from the file
+            properties.load(inputStream);
+        } catch (IOException e) {
+            logger.error(() -> "Io exception occurred");
+        } finally {
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    logger.error(() -> " exception occurred while closing the sheet");
+                }
+            }
+        }
+
+    }
+
+    /**
+     * Teardown method to mark the scenario status, take screenshot at the end of the scenario and close the browser
+     */
     @After
     public void tearDown(Scenario scenario) {
         // Close the browser after the scenario
+        final byte[] screenshot = ((TakesScreenshot) driver)
+                .getScreenshotAs(OutputType.BYTES);
+        scenario.attach(screenshot, "image/png","Scenario complete"); //s
         driver.quit();
         if(scenario.isFailed()){
             scenario.log("Scenario failed");
