@@ -3,6 +3,7 @@ package com.au.kfc;
 import io.cucumber.core.logging.Logger;
 import io.cucumber.core.logging.LoggerFactory;
 import io.cucumber.java.Scenario;
+import io.qameta.allure.Allure;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import io.cucumber.java.After;
@@ -14,11 +15,13 @@ import io.cucumber.java.en.And;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
+
 
 /** Considerations during the framework creation:
  * This class contains Cucumber step definitions for ordering food on the KFC website.
@@ -40,6 +43,7 @@ public class KFCOrderSteps {
     /**
      * Setup method executed before each scenario.
      * Launches browser, sets implicit wait and load test data for the scenario to execute.
+     * This framework is created with the use of ChromeDrive, it can be further scaled with other drivers.
      */
     @Before
     public void setUp(Scenario scenario) {
@@ -65,13 +69,14 @@ public class KFCOrderSteps {
      */
     @When("the user clicks on the 'Start oder' button")
     public void userClicksStartOrderButton() {
-        findelement("id","startOrderItemButton").click();
+        javaScriptClick(findelement("id","startOrderItemButton"));
+
     }
 
     @And("user selects order type as 'Pick up'")
     public void userSelectsPickupOrderType() {
         // Select "Pick up" as the order type
-        findelement("xpath","//button[contains(@data-testid,'Pickup')]").click();
+        javaScriptClick(findelement("xpath","//button[contains(@data-testid,'Pickup')]"));
 
     }
 
@@ -117,6 +122,7 @@ public class KFCOrderSteps {
     public void userClicksCheckout() {
         // Click the "Checkout" button
         findelement("xpath","//button[@data-testid='navigation-checkout-desktop']").click();
+
     }
 
     @Then("user checkouts as 'Guest'")
@@ -192,6 +198,7 @@ public class KFCOrderSteps {
      * @param locator The locator string.
      * @return The found WebElement.
      */
+
     public WebElement findelement(String type, String locator){
         try {
 
@@ -205,6 +212,11 @@ public class KFCOrderSteps {
         } catch (org.openqa.selenium.NoSuchElementException e) {
             logger.error(() -> "Element not found: " + locator);
             throw e;
+        }
+        finally {
+            byte[] screenshot=((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
+            Allure.addAttachment("Finding element", new ByteArrayInputStream(screenshot));
+
         }
     }
     /**
@@ -238,6 +250,11 @@ public class KFCOrderSteps {
 
     }
 
+    public void javaScriptClick(WebElement elementToClick){
+        JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
+        jsExecutor.executeScript("arguments[0].click();", elementToClick);
+
+    }
     /**
      * Teardown method to mark the scenario status, take screenshot at the end of the scenario and close the browser
      */
@@ -246,10 +263,10 @@ public class KFCOrderSteps {
         // Close the browser after the scenario
         final byte[] screenshot = ((TakesScreenshot) driver)
                 .getScreenshotAs(OutputType.BYTES);
-        scenario.attach(screenshot, "image/png","Scenario complete"); //s
-        driver.quit();
+        scenario.attach(screenshot, "image/png","Scenario complete");
         if(scenario.isFailed()){
             scenario.log("Scenario failed");
         }
+        driver.quit();
     }
 }

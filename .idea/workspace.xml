@@ -4,15 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="58f302f9-680d-420f-a0c8-8b2c68d65ad1" name="Changes" comment="Adding javadoc and reporting error message post payment">
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/harshakdesharaju.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/testData/testdata.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+    <list default="true" id="58f302f9-680d-420f-a0c8-8b2c68d65ad1" name="Changes" comment="Javadoc updation and implementation of testdata.properties files">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/KFCOrderSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/au/kfc/KFCOrderSteps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/Testrunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Testrunner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/Features/KFC_Orderfailure.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/Features/KFC_Orderfailure.feature" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/Testrunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/TestRunner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/au/kfc/KFCOrderSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/au/kfc/KFCOrderSteps.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/cucumber" beforeDir="false" afterPath="$PROJECT_DIR$/target/cucumber" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -47,23 +43,48 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
-    "onboarding.tips.debug.path": "/Users/harshakdesharaju/code/Selenium_workspace/KFC_Order/src/main/java/org/example/Main.java",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;/Users/harshakdesharaju/code/Selenium_workspace/KFC_Order/src/main/java/org/example/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Gradle.Testrunner">
+    <configuration name="KFC_Order [allureAggregatedReport]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="allureAggregatedReport" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
     <configuration name="KFC_Order [cucumber]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--info" />
+        <option name="scriptParameters" value="--scan" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -151,9 +172,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.Testrunner" />
-        <item itemvalue="Gradle.KFC_Order [test]" />
         <item itemvalue="Gradle.KFC_Order [cucumber]" />
+        <item itemvalue="Gradle.KFC_Order [allureAggregatedReport]" />
         <item itemvalue="Gradle.KFC_Order [dependencies]" />
+        <item itemvalue="Gradle.KFC_Order [test]" />
       </list>
     </recent_temporary>
   </component>
@@ -182,13 +204,33 @@
       <option name="project" value="LOCAL" />
       <updated>1693905035327</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Javadoc updation and implementation of testdata.properties files">
+      <option name="closed" value="true" />
+      <created>1693960390148</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1693960390148</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="initial commit for KFC payment failure scenario with sucessful test run" />
     <MESSAGE value="Adding javadoc and reporting error message post payment" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adding javadoc and reporting error message post payment" />
+    <MESSAGE value="Javadoc updation and implementation of testdata.properties files" />
+    <option name="LAST_COMMIT_MESSAGE" value="Javadoc updation and implementation of testdata.properties files" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -199,10 +241,19 @@
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/Testrunner.java</url>
+          <url>file://$PROJECT_DIR$/src/test/java/TestRunner.java</url>
           <line>6</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/build.gradle</url>
+          <line>10</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.net.SocketException" package="java.net" />
+          <option name="timeStamp" value="3" />
+        </breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
